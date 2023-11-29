@@ -29,6 +29,7 @@ namespace Grafice_PVT
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -36,11 +37,14 @@ namespace Grafice_PVT
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.PVT = new System.Windows.Forms.Label();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(140, 15);
+            this.button1.Location = new System.Drawing.Point(24, 15);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -51,7 +55,7 @@ namespace Grafice_PVT
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(267, 15);
+            this.button2.Location = new System.Drawing.Point(132, 15);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
@@ -62,17 +66,18 @@ namespace Grafice_PVT
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(400, 15);
+            this.button3.Location = new System.Drawing.Point(240, 15);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 2;
             this.button3.Text = "Izoterma";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(540, 15);
+            this.button4.Location = new System.Drawing.Point(348, 15);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 28);
@@ -82,7 +87,7 @@ namespace Grafice_PVT
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(687, 15);
+            this.button5.Location = new System.Drawing.Point(456, 15);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 28);
@@ -104,7 +109,7 @@ namespace Grafice_PVT
             // PVT
             // 
             this.PVT.AutoSize = true;
-            this.PVT.Location = new System.Drawing.Point(872, 21);
+            this.PVT.Location = new System.Drawing.Point(981, 21);
             this.PVT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PVT.Name = "PVT";
             this.PVT.Size = new System.Drawing.Size(45, 16);
@@ -112,11 +117,22 @@ namespace Grafice_PVT
             this.PVT.Text = "label1";
             this.PVT.Click += new System.EventHandler(this.label1_Click);
             // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Location = new System.Drawing.Point(594, 25);
+            this.hScrollBar1.Maximum = 10;
+            this.hScrollBar1.Minimum = 1;
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(226, 18);
+            this.hScrollBar1.TabIndex = 7;
+            this.hScrollBar1.Value = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1312, 690);
+            this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.PVT);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -135,6 +151,7 @@ namespace Grafice_PVT
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,6 +166,8 @@ namespace Grafice_PVT
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label PVT;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
 

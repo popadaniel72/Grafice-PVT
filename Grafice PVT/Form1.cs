@@ -12,11 +12,24 @@ namespace Grafice_PVT
 {
     public partial class Form1 : Form
     {
-        int x = 50, y = 550, p=0, v=0;
+        int x = 50, y = 550, p=0, v=0, t=0, xdr=700, ysus=50;
         Pen rosu, negru, verde, albastru, portocaliu, galben;
         int[] izobare;
-        int nrizobare=0, nrizocore = 0, mx = 10;
+        int nrizobare=0, nrizocore = 0, mx = 10, nrizoterme=0;
+        int[] izocore;
+        bool izobara = false, izocora = false, izoterma = false, adiabata = false;
+        double R = 8.310, n=2;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            izobara = false; izocora = false; izoterma = false; adiabata = false;
+            if (nrizoterme < mx)
+            {
+                izoterma = true;
+                nrizoterme++;
+            }
+        }
 
+        int[] izoterme;
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -44,18 +57,22 @@ namespace Grafice_PVT
             this.Invalidate();
         }
 
-        int[] izocore;
-        bool izobara=false, izocora = false, izoterma = false, adiabata = false;
+        
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            p = y - e.Y;
-            v = e.X - x;
-            PVT.Text = "P= " + p.ToString() + " V= " + v.ToString();
-            if(izobara) izobare[nrizobare] = e.Y;
-            if (izocora) izocore[nrizocore] = e.X;
-            if(izobara || izocora || izoterma || adiabata)
-            this.Invalidate();
+            if (e.X >= x && e.X <= xdr && e.Y >= ysus && e.Y <= y)
+            {
+                p = y - e.Y;
+                v = e.X - x;
+                t = (int)( 1.0*p *v/(n*R) );
+                PVT.Text = "P= " + p.ToString() + " V= " + v.ToString()+" T="+t.ToString();
+                if (izobara) izobare[nrizobare] = e.Y;
+                if (izocora) izocore[nrizocore] = e.X;
+                if (izoterma) izoterme[nrizoterme] = t;
+                if (izobara || izocora || izoterma || adiabata)
+                    this.Invalidate();
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -66,12 +83,14 @@ namespace Grafice_PVT
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             /// desen grafic
-            dVector(x, y, 90, 500, negru, e);
-            dVector(x, y, 0, 800, negru, e);
+            dVector(x, y, 90, y-ysus, negru, e);
+            dVector(x, y, 0, xdr-x, negru, e);
             for (int i = 1; i <= nrizobare; i++)
                 dIzobara(izobare[i], albastru, e);
             for(int i=1; i<=nrizocore; i++)
                 dIzocora(izocore[i], verde, e);
+            for (int i = 1; i <= nrizoterme; i++)
+                dIzoterma(izoterme[i], rosu, e);
         }
 
         
@@ -87,6 +106,7 @@ namespace Grafice_PVT
             portocaliu = new Pen(Color.Orange, 1);
             izobare = new int[mx + 1];
             izocore = new int[mx + 1];
+            izoterme = new int[mx + 1];
 
         }
 
@@ -97,6 +117,16 @@ namespace Grafice_PVT
         void dIzocora(int p, Pen cul, PaintEventArgs e)
         {
             e.Graphics.DrawLine(cul, p, y , p, 50);
+        }
+        void dIzoterma(int t, Pen cul, PaintEventArgs e)
+        {
+            int yv = (int)(n *R * t) , yn;
+            for(int i =2; i<xdr-x; i++)
+            {
+                yn =(int) (n * R * t / i);
+                e.Graphics.DrawLine(cul, x+i - 1, y-yv, x+i, y-yn);
+                yv = yn;
+            }
         }
         void dVector(int x, int y, int u, int l, Pen cul, PaintEventArgs e)
         {
