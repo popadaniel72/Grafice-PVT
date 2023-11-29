@@ -84,6 +84,7 @@ namespace Grafice_PVT
             this.button4.TabIndex = 3;
             this.button4.Text = "Adiabata";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -109,7 +110,7 @@ namespace Grafice_PVT
             // PVT
             // 
             this.PVT.AutoSize = true;
-            this.PVT.Location = new System.Drawing.Point(981, 21);
+            this.PVT.Location = new System.Drawing.Point(953, 21);
             this.PVT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PVT.Name = "PVT";
             this.PVT.Size = new System.Drawing.Size(45, 16);

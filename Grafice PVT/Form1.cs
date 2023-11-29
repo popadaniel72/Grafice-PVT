@@ -12,13 +12,26 @@ namespace Grafice_PVT
 {
     public partial class Form1 : Form
     {
-        int x = 50, y = 550, p=0, v=0, t=0, xdr=700, ysus=50;
+        int x = 50, y = 550, p=0, v=0, t=0, xdr=700, ysus=50, adi;
         Pen rosu, negru, verde, albastru, portocaliu, galben;
         int[] izobare;
-        int nrizobare=0, nrizocore = 0, mx = 10, nrizoterme=0;
+        int nrizobare=0, nrizocore = 0, mx = 10, nrizoterme=0, nradiabate;
         int[] izocore;
+        int[] adiabate;
+        double R = 8.310, n = 2, ga = 1.65;
         bool izobara = false, izocora = false, izoterma = false, adiabata = false;
-        double R = 8.310, n=2;
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            izobara = false; izocora = false; izoterma = false; adiabata = false;
+            if (nradiabate < mx)
+            {
+                adiabata = true;
+                nradiabate++;
+            }
+        }
+
+        
         private void button3_Click(object sender, EventArgs e)
         {
             izobara = false; izocora = false; izoterma = false; adiabata = false;
@@ -54,6 +67,8 @@ namespace Grafice_PVT
         {
             nrizocore = 0;
             nrizobare = 0;
+            nrizoterme = 0;
+            nradiabate = 0;
             this.Invalidate();
         }
 
@@ -66,10 +81,12 @@ namespace Grafice_PVT
                 p = y - e.Y;
                 v = e.X - x;
                 t = (int)( 1.0*p *v/(n*R) );
+                adi = (int)(p * Math.Pow(v, ga));
                 PVT.Text = "P= " + p.ToString() + " V= " + v.ToString()+" T="+t.ToString();
                 if (izobara) izobare[nrizobare] = e.Y;
                 if (izocora) izocore[nrizocore] = e.X;
                 if (izoterma) izoterme[nrizoterme] = t;
+                if (adiabata) adiabate[nradiabate] = adi;
                 if (izobara || izocora || izoterma || adiabata)
                     this.Invalidate();
             }
@@ -91,6 +108,8 @@ namespace Grafice_PVT
                 dIzocora(izocore[i], verde, e);
             for (int i = 1; i <= nrizoterme; i++)
                 dIzoterma(izoterme[i], rosu, e);
+            for (int i = 1; i <= nradiabate; i++)
+                dAdiabata(adiabate[i], portocaliu, e);
         }
 
         
@@ -107,6 +126,7 @@ namespace Grafice_PVT
             izobare = new int[mx + 1];
             izocore = new int[mx + 1];
             izoterme = new int[mx + 1];
+            adiabate = new int[mx + 1];
 
         }
 
@@ -118,10 +138,20 @@ namespace Grafice_PVT
         {
             e.Graphics.DrawLine(cul, p, y , p, 50);
         }
+        void dAdiabata(int adi, Pen cul, PaintEventArgs e)
+        {
+            int yn, yv=adi, i;
+            for(i=3; i<=xdr-x;i+=2)
+            {
+                yn = (int)(adi / Math.Pow(i, ga));
+                e.Graphics.DrawLine(cul, x + i - 2, y - yv, x + i, y - yn);
+                yv = yn;
+            }
+        }
         void dIzoterma(int t, Pen cul, PaintEventArgs e)
         {
             int yv = (int)(n *R * t) , yn;
-            for(int i =2; i<xdr-x; i++)
+            for(int i =2; i<xdr-x; i+=2)
             {
                 yn =(int) (n * R * t / i);
                 e.Graphics.DrawLine(cul, x+i - 1, y-yv, x+i, y-yn);
